@@ -1,0 +1,242 @@
+<template>
+  <!-- Sticky Panel -->
+    <div v-if="isSidebarVisible" class="sidebar" :class="{ fixed: isSidebarFixed }" 
+    @mouseenter="isHoweredStickyPanel = true" @mouseleave="isHoweredStickyPanel = false">
+        <div className="sticky-panel-menu"> 
+          <div className="logo-img-container">
+       <!-- <h2 className="logo2">PIKIBI</h2> -->
+        <img :src="icon_logo" alt="Png_logo" class="logo-img"/> <!--Logo icon-->
+      </div>
+          <router-link to="/">
+                <div class="sticky-panel-btn" :class="{'expanded':isHoweredStickyPanel}">
+                  <div class="image-container">
+                    <img :src="icon_main_page"  alt="Png_main_page" 
+                    class="image1" height="85%" width="85%"/> <!--Main page icon-->
+                  </div>
+                    <h1 class="sticky-panel-text" :class="{'expanded':isHoweredStickyPanel}">
+                  Главная
+                  </h1>
+                </div>
+            </router-link>
+            <router-link to="/posts">
+                <div class="sticky-panel-btn" :class="{'expanded':isHoweredStickyPanel}">
+                  <div class="image-container">
+                    <img :src="icon_main_list"  alt="Png_main_list" 
+                    class="image2" height="65%" width="65%"/> <!--Main list icon-->
+                  </div>
+                    <h1 class="sticky-panel-text" :class="{'expanded':isHoweredStickyPanel}">
+                  Посты
+                </h1>
+                </div>
+            </router-link>
+            <router-link to="/rating">
+                <div class="sticky-panel-btn" :class="{'expanded':isHoweredStickyPanel}">
+                  <div class="image-container">
+                    <img :src="icon_rating_list"  alt="Png_rating_list" 
+                    class="image" height="80%" width="80%"/> <!--Rating list icon-->
+                  </div>
+                    <h1 class="sticky-panel-text" :class="{'expanded':isHoweredStickyPanel}">
+                  Лучшее
+                </h1>
+                </div>
+             </router-link>
+            <router-link to="/subs">
+                <div class="sticky-panel-btn" :class="{'expanded':isHoweredStickyPanel}">
+                  <div class="image-container">
+                    <img :src="icon_sub_list"  alt="Png_sub_list" 
+                    class="image" height="80%" width="80%"/> <!--Sub list icon-->
+                  </div>
+                    <h1 class="sticky-panel-text" :class="{'expanded':isHoweredStickyPanel}">
+                  Подписки
+                </h1>
+                </div>
+            </router-link> 
+            <router-link to="/create">
+                <div class="sticky-panel-btn" :class="{'expanded':isHoweredStickyPanel}">
+                  <div class="image-container">
+                    <img :src="icon_plus_btn"  alt="Png_plus_btn" 
+                    class="image" height="80%" width="80%"/> <!--Plus button icon-->
+                  </div>
+                    <h1 class="sticky-panel-text" :class="{'expanded':isHoweredStickyPanel}">
+                  Создать
+                </h1>
+                </div>
+            </router-link>
+            <router-link to="/profile">
+                <div class="sticky-panel-btn" :class="{'expanded':isHoweredStickyPanel}">
+                  <div class="image-container">
+                    <img :src="icon_profile_btn"  alt="Png_profile_btn" 
+                    class="image3" height="75%" width="75%"/> <!--Profile button icon-->
+                  </div>
+                    <h1 class="sticky-panel-text" :class="{'expanded':isHoweredStickyPanel}">
+                  Профиль
+                </h1>
+                </div>
+            </router-link>
+            <router-link to="/help">
+                <div class="sticky-panel-btn" :class="{'expanded':isHoweredStickyPanel}">
+                  <div class="image-container">
+                    <img :src="icon_help_btn"  alt="Png_help_btn" 
+                    class="image" height="80%" width="80%"/> <!--Help button icon-->
+                  </div>
+                    <h1 class="sticky-panel-text" :class="{'expanded':isHoweredStickyPanel}">
+                  Помощь
+                </h1>
+                </div>
+            </router-link>
+            <router-link to="/">
+                <div class="sticky-panel-btn" :class="{'expanded':isHoweredStickyPanel}">
+                  <div class="image-container">
+                    <img :src="icon_search_btn"  alt="Png_search_btn" 
+                    class="image" height="80%" width="80%"/> <!--Search button icon-->
+                  </div>
+                </div>
+            </router-link>
+        </div>
+    </div>
+    <!-- Header -->
+    <header ref="header" className="header">
+      <!-- Added link in logo to main page --> 
+      <router-link to="/">
+        <div className="logo-container">
+          <h1 className="logo">PIKIBI</h1>
+          <img :src="icon_logo" alt="Png_logo" class="logo-img"/> <!--Logo icon-->
+        </div>
+      </router-link>
+      <!-- Main menu on Header -->
+      <div className="header-main-menu"> 
+            <router-link to="/">
+                <div class="main-page-link">
+                    <img :src="icon_main_page"  alt="Png_main_page" 
+                    class="image1" height="85%" width="85%"/> <!--Main page icon-->
+                </div>
+            </router-link>
+            <router-link to="/posts">
+                <div class="main-list-link">
+                    <img :src="icon_main_list"  alt="Png_main_list" 
+                    class="image2" height="65%" width="65%"/> <!--Main list icon-->
+                </div>
+            </router-link>
+            <router-link to="/rating">
+                <div class="rating-list-link">
+                    <img :src="icon_rating_list"  alt="Png_rating_list" 
+                    class="image" height="80%" width="80%"/> <!--Rating list icon-->
+                </div>
+             </router-link>
+            <router-link to="/subs">
+                <div class="sub-list-link">
+                    <img :src="icon_sub_list"  alt="Png_sub_list" 
+                    class="image" height="80%" width="80%"/> <!--Sub list icon-->
+                </div>
+            </router-link> 
+      </div>
+      <div class="header-profile-menu" :class="{'expanded':isHowered}">
+        <!-- Search container begin -->
+        <div class="search-container" :class="{'expanded':isHowered}" @mouseenter="showInput, isHowered = true" @mouseleave="hideInput, isHowered = false">
+          <input type="text" class="search-input" :class="{'expanded':isHowered}" placeholder="Поиск..."/> 
+          <router-link to="/">
+                <div class="search-button">
+                    <img :src="icon_search_btn"  alt="Png_search_btn" 
+                    class="image" height="80%" width="80%"/> <!--Search button icon-->
+                </div>
+            </router-link>
+        </div>
+        <!-- Search container end -->
+            <router-link to="/create">
+                <div class="plus-button">
+                    <img :src="icon_plus_btn"  alt="Png_plus_btn" 
+                    class="image" height="80%" width="80%"/> <!--Plus button icon-->
+                </div>
+            </router-link>
+            <router-link to="/profile">
+                <div class="profile-button">
+                    <img :src="icon_profile_btn"  alt="Png_profile_btn" 
+                    class="image3" height="75%" width="75%"/> <!--Profile button icon-->
+                </div>
+            </router-link>
+            <router-link to="/help">
+                <div class="help-button">
+                    <img :src="icon_help_btn"  alt="Png_help_btn" 
+                    class="image" height="80%" width="80%"/> <!--Help button icon-->
+                </div>
+            </router-link>
+      </div>
+    </header>
+  </template>
+  
+<script>
+  import '@/assets/header-stylesheet.css'
+/* Import icons begin*/
+  import importMainPageIconOff from '@/assets/icons/homeIconWhite.png';
+  import importMainListIconOff from '@/assets/icons/mainListIconWhite.png';
+  import importRatingListIconOff from '@/assets/icons/ratingIconWhite.png';
+  import importSubListIconOff from '@/assets/icons/subMarkIconWhite.png';
+  import importSearchIconOff from '@/assets/icons/searchIconVar1White.png';
+  import importPlusIconOff from '@/assets/icons/plusIconWhite.png';
+  import importProfileIconOff from '@/assets/icons/profileIconWhite.png';
+  import importHelpIconOff from '@/assets/icons/questionIconWhite.png';
+  import importLogoIcon from '@/assets/icons/logoIcon.png';
+  /* Import icons end*/
+
+  export default {
+    name: 'Header',
+    data() {
+        return {
+            /*Initialization icons begin*/
+            icon_main_page: importMainPageIconOff,
+            icon_main_list: importMainListIconOff,
+            icon_rating_list: importRatingListIconOff,
+            icon_sub_list: importSubListIconOff,
+            icon_search_btn: importSearchIconOff,
+            icon_plus_btn: importPlusIconOff,
+            icon_profile_btn: importProfileIconOff,
+            icon_help_btn: importHelpIconOff,
+            icon_logo: importLogoIcon,
+            /*Initialization icons end*/
+
+            /*StickyPanel logic flags*/
+            isSidebarFixed: false,
+            isSidebarVisible: false,
+
+            isInputVisible: false,
+            isHowered: false,
+            isHoweredStickyPanel: false,
+        };
+    },
+    /* Realize StickyPanel logic begin*/
+    mounted() {
+        window.addEventListener('scroll', this.handleScroll);
+    },
+    beforeDestroy() {
+        window.removeEventListener('scroll', this.handleScroll);
+    },
+    methods: {
+        handleScroll() {
+            const header = this.$refs.header;
+            if (header.getBoundingClientRect().bottom < 0) {
+                this.isSidebarFixed = true;
+                this.isSidebarVisible = true;
+            }   else {
+                this.isSidebarFixed = false;
+                this.isSidebarVisible = false;
+            }
+        },
+        /* Realize StickyPanel logic end*/
+
+        
+        /* Realize SearchPanel logic begin*/
+        showInput() {
+            setTimeout(() => {
+              this.isHowered = true;
+            }, 50000); // 0.5s
+        },
+        hideInput() {
+          setTimeout(() => {
+              this.isHowered = false;
+            }, 50000);
+        },
+        /* Realize SearchPanel logic end*/
+    },
+  };
+</script>
+  
