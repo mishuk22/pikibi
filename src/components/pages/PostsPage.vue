@@ -1,24 +1,25 @@
 <template>
     <div className="main-container">
     <Header></Header>
-    <h1>MainPagethehteheth</h1>
+    <div class="posts-container">
+      <PostMini></PostMini>
+    </div>
   </div>
 </template>
 
 <script>
-import Header from '@/components/Header.vue';
+  import Header from '@/components/Header.vue';
+  import PostMini from '@/components/PostMini.vue';
     export default {
         name: 'PostsPage',
         components:{
-      Header,
-    },
+          Header,
+          PostMini,
+        },
     }
 </script>
 
 <style scoped>
-.h1 {
-  color:white;
-}
 .main-container {
   width: 100%;
   height: 10000px;
@@ -26,5 +27,12 @@ import Header from '@/components/Header.vue';
   color: white;
   margin: 0;
   padding: 0;
+}
+
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>
