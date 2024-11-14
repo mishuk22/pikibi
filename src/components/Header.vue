@@ -90,6 +90,7 @@
                     <img :src="icon_search_btn"  alt="Png_search_btn" 
                     class="image" height="80%" width="80%"/> <!--Search button icon-->
                   </div>
+                  <input type="text" class="search-input-panel" :class="{'expanded':isHoweredStickyPanel}" placeholder="Поиск..."/> 
                 </div>
             </router-link>
         </div>

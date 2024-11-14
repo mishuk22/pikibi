@@ -1,11 +1,11 @@
 import * as VueRouter from "vue-router"
 import MainPage from "@/components/pages/MainPage.vue"
 import PostsPage from "@/components/pages/PostsPage.vue"
-import RatingPage from "@/components/RatingPage.vue"
-import SubPage from "@/components/SubPage.vue"
-import CreatePage from "@/components/CreatePage.vue"
-import ProfilePage from "@/components/ProfilePage.vue"
-import HelpPage from "@/components/HelpPage.vue"
+import RatingPage from "@/components/pages/RatingPage.vue"
+import SubPage from "@/components/pages/SubPage.vue"
+import CreatePage from "@/components/pages/CreatePage.vue"
+import ProfilePage from "@/components/pages/ProfilePage.vue"
+import HelpPage from "@/components/pages/HelpPage.vue"
 
 export default VueRouter.createRouter({
     history:VueRouter.createWebHashHistory(),

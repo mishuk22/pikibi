@@ -1,4 +1,4 @@
-   .sidebar {
+    .sidebar {
     opacity: 0;
     animation: ani 2.5s forwards;
     width: 100px;
@@ -29,6 +29,7 @@
   }
 
   .header {
+    text-decoration: none;
     opacity: 0;
     animation: ani 2.5s forwards;
     background-color: rgb(7, 7, 7);
@@ -56,6 +57,7 @@
     text-decoration: none;
     cursor: default;
     padding-right: 5px;
+    color: white;
   }
 
   .logo2 {
@@ -246,6 +248,56 @@
     opacity: 0.5;
   }
 
+  .search-input-panel.expanded {
+    transition: width 1.5s ease, opacity 1.2s ease 0.5s;
+    max-width: 110px;
+    width: 110px; 
+    height: 30px;
+    opacity: 1; 
+    border: solid white;
+    color: rgb(255, 255, 255);
+    background-color: rgb(20, 20, 20);
+    padding-left: 5px;
+    border-radius: 10px;
+    padding-left: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+  }
+
+  /*invisible search bar*/
+  .search-input-panel {
+    padding-left: 13px;
+    max-width: 0px;
+    border: solid white;
+    color: rgb(255, 255, 255);
+    background-color: rgb(20, 20, 20);
+    transition: opacity 0.3s ease, height 0.3s ease 0.2s,
+    border-radius 0.3s ease 0.2s, border-width 0.3s ease 0.2s, width 0.3s ease 0.2s;
+    height: 0;
+    width: 0;
+    opacity: 0; 
+    border-radius: 0;
+    border-width: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+  }
+
+  .search-input.expanded-panel::placeholder {
+    text-decoration: none;
+    color: white;
+    opacity: 0.5;
+  }
+
+  .search-input-panel::placeholder {
+    text-decoration: none;
+    color: white;
+    opacity: 0.5;
+  }
+
   .image-container {
     margin-left: 20px;
     width: 60px;
@@ -259,6 +311,7 @@
   }
 
   .sticky-panel-menu {
+    text-decoration: none;
     margin-top: 10px;
     display: flex;
     flex-direction: column;
@@ -285,6 +338,8 @@
   }
 
   .sticky-panel-text {
+    color: white;
+    text-decoration: none;
     transition: height 0.5s ease, width 0.5s ease, opacity 0.5s ease;
     height: 0;
     width: 0;
@@ -297,7 +352,8 @@
   }
 
   .sticky-panel-text.expanded {
-    transition: height 1.0s ease 0.8s, width 1.0s ease 0.8s, opacity 1.5s ease 0.8s;
+    transition: height 1.0s ease, width 1.0s ease, opacity 1.5s ease 0.8s;
+    text-decoration: none;
     height: 60px;
     width: 100px;
     opacity: 1;

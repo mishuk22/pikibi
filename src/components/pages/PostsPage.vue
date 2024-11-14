@@ -24,8 +24,6 @@ import Header from '@/components/Header.vue';
   height: 10000px;
   background-color: rgb(20, 20, 20);
   color: white;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 200;
   margin: 0;
   padding: 0;
 }
