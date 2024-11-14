@@ -166,7 +166,7 @@
   </template>
   
 <script>
-  import '@/assets/header-stylesheet.css'
+  import '@/assets/styles/header-stylesheet.css'
 /* Import icons begin*/
   import importMainPageIconOff from '@/assets/icons/homeIconWhite.png';
   import importMainListIconOff from '@/assets/icons/mainListIconWhite.png';

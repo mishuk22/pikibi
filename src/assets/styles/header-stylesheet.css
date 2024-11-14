@@ -56,7 +56,8 @@
     font-size: 38px;
     text-decoration: none;
     cursor: default;
-    padding-right: 5px;
+    padding-right: 10px;
+    padding-left: 5px;
     color: white;
   }
 
@@ -174,6 +175,7 @@
   .logo-img {
     height: 38px;
     width: 38px;
+    cursor: default;
   }
 
   .logo-img-container {
@@ -319,6 +321,10 @@
     align-items: center;
   }
 
+  .sticky-panel-menu a {
+    text-decoration: none;
+  }
+
   .sticky-panel-btn {
     transition: width 0.3s ease, justify-content 0.3s ease;
     width: 100px;
@@ -350,7 +356,9 @@
     cursor: default;
     font-size: 28px;
   }
-
+  .sticky-panel-text a:hover {
+  text-decoration: none;
+}
   .sticky-panel-text.expanded {
     transition: height 1.0s ease, width 1.0s ease, opacity 1.5s ease 0.8s;
     text-decoration: none;
@@ -367,6 +375,7 @@
     transition: filter 0.3s ease, font-size 0.3s ease, opacity 1.5s ease 0.8s;
     font-size: 30px;
     filter:brightness(70%);
+    text-decoration: none;
   }
 
   /*css for hovered images*/
