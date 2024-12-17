@@ -1,11 +1,10 @@
 <template>
     <div class="main-container">
-      <!-- Фон с пузырьками -->
-      <div class="background-container">
-        <div class="bubbles">
-          <div v-for="n in 50" :key="n" class="bubble" :style="getBubbleStyle()"></div>
-        </div>
+      <!-- Анимация пузырьков -->
+    <div v-show="bubblesEnabled" class="background-container">
+      <div class="bubbles" :style="getBubbleStyle()" ref="bubbleContainer">
       </div>
+    </div>
   
       <!-- Основное содержимое -->
       <Header></Header>
@@ -40,6 +39,9 @@
   </template>
   
   <script>
+  import { useSettingsStore } from "@/stores/useSettingsStore";
+  import { storeToRefs } from "pinia";
+  import '@/assets/styles/animation-bubbles.css';
   import { ref } from 'vue';
   import { posts, savePostsToLocalStorage } from '@/composables/usePosts';
   import Header from '@/components/Header.vue';
@@ -52,6 +54,8 @@
     },
   
     setup() {
+      const settingsStore = useSettingsStore();
+      const { bubblesEnabled } = storeToRefs(settingsStore);
       const title = ref('');
       const text = ref('');
       const images = ref([]);
@@ -107,24 +111,8 @@
         images.value = [];
       };
   
-      const getBubbleStyle = () => {
-        const size = Math.random() * (100 - 30) + 30;
-        const top = Math.random() * 100;
-        const left = Math.random() * 100;
-        const animationDelay = Math.random() * 5;
-        const duration = Math.random() * (10 - 5) + 5;
-  
-        return {
-          width: `${size}px`,
-          height: `${size}px`,
-          top: `${top}%`,
-          left: `${left}%`,
-          animationDelay: `${animationDelay}s`,
-          animationDuration: `${duration}s`,
-        };
-      };
-  
       return {
+        bubblesEnabled,
         title,
         text,
         images,
@@ -133,62 +121,64 @@
         submitPost,
         onFileChange,
         removeImage,
-        getBubbleStyle,
       };
     },
+    mounted() {
+    this.createBubbles();
+    },
+    methods: {
+    createBubbles() {
+      const container = this.$refs.bubbleContainer;
+      for (let i = 0; i < 30; i++) {
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        const size = Math.random() * (100 - 30) + 30;
+        const top = Math.random() * 100;
+        const left = Math.random() * 100;
+        const delay = Math.random() * 5;
+        const duration = Math.random() * (10 - 5) + 5;
+
+        bubble.style.width = `${size}px`;
+        bubble.style.height = `${size}px`;
+        bubble.style.top = `${top}%`;
+        bubble.style.left = `${left}%`;
+        bubble.style.animationDuration = `${duration}s`;
+        bubble.style.animationDelay = `${delay}s`;
+        container.appendChild(bubble);
+      }
+      },
+      getBubbleStyle() {
+      const size = Math.random() * (100 - 30) + 30;
+      const top = Math.random() * 100;
+      const left = Math.random() * 100;
+      const animationDelay = Math.random() * 5;
+      const duration = Math.random() * (10 - 5) + 5;
+
+      return {
+        width: `${size}px`,
+        height: `${size}px`,
+        top: `${top}%`,
+        left: `${left}%`,
+        animationDelay: `${animationDelay}s`,
+        animationDuration: `${duration}s`,
+      };
+    },
+    }
   };
   </script>
   
   <style scoped>
   /* Основные стили */
   .main-container {
-    background-color: rgb(20, 20, 20);
-    color: white;
-    margin: 0;
-    padding: 0;
-    position: relative;
-    overflow: hidden; /* Прячем лишние элементы за пределы страницы */
-  }
-  
-  /* Фон пузырьков */
-  .background-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-  }
-  
-  .bubbles {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .bubble {
-    position: absolute;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    animation: float 8s infinite;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-  }
-  
-  /* Анимация пузырьков */
-  @keyframes float {
-    0% {
-      transform: translateY(100%) scale(0.8);
-      opacity: 0.5;
-    }
-    50% {
-      transform: translateY(-50%) scale(1.2);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(-100%) scale(0.8);
-      opacity: 0;
-    }
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background-color: rgb(20, 20, 20);
+  color: white;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow: hidden; /* Прячем лишние элементы за пределы страницы */
   }
   
   /* Контент формы */

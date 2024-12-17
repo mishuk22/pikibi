@@ -1,9 +1,8 @@
 <template>
   <div class="main-container">
     <!-- Анимация пузырьков -->
-    <div class="background-container">
-      <div class="bubbles">
-        <div v-for="n in 30" :key="n" class="bubble" :style="getBubbleStyle()"></div>
+    <div v-show="bubblesEnabled" class="background-container">
+      <div class="bubbles" :style="getBubbleStyle()" ref="bubbleContainer">
       </div>
     </div>
 
@@ -16,12 +15,15 @@
       <div class="post-text">{{ post.text }}</div>
       <div class="post-images" v-if="post.images.length > 0">
           <template v-if="post.images.length === 1">
-            <img :src="post.images[0]" class="image" :alt="'Изображение 1'" @click="openModal(0)"/>
+            <img :src="post.images[0]" class="image" :class="{ fixed: isHoweredImage }" :alt="'Изображение 1'" @click="openModal(0)"
+            @mouseenter="isHoweredImage = true" @mouseleave="isHoweredImage = false"/>
           </template>
           <template v-else>
             <div class="image-stack">
-              <img :src="post.images[0]" class="top-image" :alt="'Изображение 1'" @click="openModal(0)"/>
-              <img :src="post.images[1]" class="bottom-image" :alt="'Изображение 2'" @click="openModal(1)"/>
+              <img :src="post.images[0]" class="top-image" :class="{ fixed: isHoweredImage }" :alt="'Изображение 1'" @click="openModal(0)"
+              @mouseenter="isHoweredImage = true" @mouseleave="isHoweredImage = false"/>
+              <img :src="post.images[1]" class="bottom-image" :class="{ fixed: isHoweredImage }" :alt="'Изображение 2'" @click="openModal(1)"
+              @mouseenter="isHoweredImage = true" @mouseleave="isHoweredImage = false"/>
             </div>
           </template>
         </div>
@@ -30,29 +32,37 @@
     <!-- Модальное окно для просмотра изображений -->
     <div v-if="showModal" class="modal" @click.self="closeModal">
       <div class="modal-content">
-        <button class="close-btn" @click="closeModal">×</button>
         <img :src="post.images[currentImageIndex]" alt="Изображение" class="modal-image" />
+      </div>
         <button class="prev-btn" @click="prevImage">←</button>
         <button class="next-btn" @click="nextImage">→</button>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { useSettingsStore } from "@/stores/useSettingsStore";
+import { storeToRefs } from "pinia";
 import { posts } from "@/composables/usePosts"; // Ваш массив постов
 import Header from "@/components/Header.vue";
+import '@/assets/styles/animation-bubbles.css';
 
 export default {
   name: "PostDetails",
   components: {
     Header,
   },
+  setup() {
+    const settingsStore = useSettingsStore();
+    const { bubblesEnabled } = storeToRefs(settingsStore);
+    return { bubblesEnabled };
+  },  
   props: ["id"], // Получаем параметр id из маршрута
   data() {
     return {
       showModal: false, // Для отображения модального окна
-      activeImage: 0, // Индекс активного изображения
+      currentImageIndex: 0,  // Индекс активного изображения
+      isHoweredImage: false
     };
   },
   computed: {
@@ -61,7 +71,30 @@ export default {
       return posts.value.find((post) => post.id === parseInt(this.id));
     },
   },
+  mounted() {
+    this.createBubbles();
+  },
   methods: {
+    createBubbles() {
+      const container = this.$refs.bubbleContainer;
+      for (let i = 0; i < 30; i++) {
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        const size = Math.random() * (100 - 30) + 30;
+        const top = Math.random() * 100;
+        const left = Math.random() * 100;
+        const delay = Math.random() * 5;
+        const duration = Math.random() * (10 - 5) + 5;
+
+        bubble.style.width = `${size}px`;
+        bubble.style.height = `${size}px`;
+        bubble.style.top = `${top}%`;
+        bubble.style.left = `${left}%`;
+        bubble.style.animationDuration = `${duration}s`;
+        bubble.style.animationDelay = `${delay}s`;
+        container.appendChild(bubble);
+      }
+    },
     // Открытие модального окна
     openModal(index) {
       this.activeImage = index;
@@ -116,50 +149,10 @@ export default {
   position: relative;
   width: 100%;
   min-height: 100vh;
+  height: 100%;
   background-color: rgb(20, 20, 20);
   color: white;
   overflow: hidden;
-}
-
-/* Анимация пузырьков */
-.background-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.bubbles {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.bubble {
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  animation: float 8s infinite;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-/* Анимация пузырьков */
-@keyframes float {
-  0% {
-    transform: translateY(100%) scale(0.8);
-    opacity: 0.5;
-  }
-  50% {
-    transform: translateY(-50%) scale(1.2);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-100%) scale(0.8);
-    opacity: 0;
-  }
 }
 
 /* Стили для контента */
@@ -194,12 +187,19 @@ export default {
 
 .image-stack {
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
 }
 
 .image {
   border: 2px solid #949494;
+}
+
+.image.fixed {
+  filter:brightness(70%);
+  width: 210px;
+  height: 210px;
+  transition: width 0.2s ease, height 0.2s ease, filter 0.2s ease;
 }
 
 .image-stack .top-image {
@@ -209,6 +209,14 @@ export default {
   z-index: 2;
   transform: translate(10px, -10px);
   border: 2px solid #949494;
+}
+
+.image-stack .top-image.fixed,
+.image-stack .bottom-image.fixed {
+  filter:brightness(70%);
+  width: 210px;
+  height: 210px;
+  transition: width 0.2s ease, height 0.2s ease, filter 0.2s ease;
 }
 
 .image-stack .bottom-image {
@@ -230,6 +238,12 @@ export default {
     border-radius: 8px;
   }
 
+  .image-folder:hover {
+    filter:brightness(70%);
+    width: 110px;
+    height: 110px;
+  }
+
   .post-likes {
     position: relative;
     margin-top: 70px;
@@ -243,36 +257,33 @@ export default {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   z-index: 1000;
 }
 
 .modal-content {
   position: relative;
-  width: 90%;
-  max-width: 600px;
-  padding: 16px;
-  background-color: white;
-  border-radius: 10px;
-  overflow: hidden;
+  max-width: 70%;
+  max-height: 70%;
+  margin-bottom: 50px;
 }
 
-.modal-content img {
+.modal-image {
   width: 100%;
-  max-height: 500px;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
 }
 
-.close-button {
+.close-btn {
   position: absolute;
   top: 10px;
   right: 10px;
-  background-color: red;
-  color: white;
+  background: transparent;
   border: none;
-  padding: 8px;
-  border-radius: 5px;
+  font-size: 30px;
+  color: white;
   cursor: pointer;
 }
 

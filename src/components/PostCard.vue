@@ -45,7 +45,7 @@ export default {
 
   computed: {
     truncatedText() {
-      return this.text.length > 50 ? this.text.slice(0, 50) + "..." : this.text;
+      return this.text.length > 50 ? this.text.slice(0, 80) + "..." : this.text;
     },
   },
 };
@@ -53,7 +53,8 @@ export default {
   
   <style scoped>
   .post-card {
-    opacity: 1;
+  position: relative;
+  opacity: 1;
   margin-top: 15px;
   margin-bottom: 10px;
   width: 600px;
