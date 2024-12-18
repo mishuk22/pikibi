@@ -1,4 +1,5 @@
 <template>
+  <MobileHeader logoSrc="/path-to-your-logo.png" />
   <div class="main-container">
       <!-- Анимация пузырьков -->
       <div v-show="bubblesEnabled" class="background-container">
@@ -22,7 +23,6 @@
         :likes="post.likes"
       />
     </div>
-    <Footer></Footer>
   </div>
 </template>
 
@@ -30,8 +30,8 @@
 import { useSettingsStore } from "@/stores/useSettingsStore";
 import { storeToRefs } from "pinia";
 import '@/assets/styles/animation-bubbles.css';
+import MobileHeader from "@/components/MobileHeader.vue";
 import Header from "@/components/Header.vue";
-import Footer from "@/components/Footer.vue";
 import { posts } from "@/composables/usePosts";
 import PostCard from "@/components/PostCard.vue";
 import { computed } from "vue";
@@ -39,8 +39,8 @@ import { computed } from "vue";
 export default {
   name: "PostsPage",
   components: {
+    MobileHeader,
     Header,
-    Footer,
     PostCard,
   },
   setup() {
@@ -97,18 +97,20 @@ export default {
 <style scoped>
 /* Общий контейнер */
 .main-container {
+  justify-items: center;
+  align-items: center;
+  position: relative;
   width: 100%;
+  min-height: 100vh;
   height: 100%;
   background-color: rgb(20, 20, 20);
   color: white;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  overflow: hidden; /* Прячем лишние элементы за пределы страницы */
+  overflow: hidden;
 }
 
 /* Стили для карточек */
 .posts-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -128,4 +130,10 @@ export default {
 .main-container > *:not(.background-container) {
   z-index: 1; /* Контент над фоном */
 }
+
+@media (max-width: 768px) {
+    .main-container {
+      margin-top: 70px;
+    }
+  }
 </style>

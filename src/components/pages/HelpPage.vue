@@ -1,4 +1,5 @@
 <template>
+  <MobileHeader logoSrc="/path-to-your-logo.png" />
     <div class="main-container">
         <!-- Анимация пузырьков -->
         <div v-show="bubblesEnabled" class="background-container">
@@ -129,6 +130,7 @@
 </template>
   
   <script>
+  import MobileHeader from "@/components/MobileHeader.vue";
   import { useSettingsStore } from "@/stores/useSettingsStore";
   import { storeToRefs } from "pinia";
   import Header from "@/components/Header.vue";
@@ -137,6 +139,7 @@
   export default {
     name: "HelpPage",
     components: {
+    MobileHeader,
     Header,
     },
     data() {
@@ -411,6 +414,12 @@ input[type="checkbox"]:checked::after {
   font-size: 16px;
   color: white; /* Цвет галочки */
 }
+
+@media (max-width: 768px) {
+    .main-container {
+      margin-top: 70px;
+    }
+  }
 
 </style>
   

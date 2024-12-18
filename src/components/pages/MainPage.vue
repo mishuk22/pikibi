@@ -1,11 +1,12 @@
 <template>
+  <MobileHeader logoSrc="/path-to-your-logo.png" />
   <div class="main-container">
     <!-- Анимация пузырьков -->
     <div v-show="bubblesEnabled" class="background-container">
       <div class="bubbles" :style="getBubbleStyle()" ref="bubbleContainer">
       </div>
     </div>
-    <Header></Header>
+    <Header class="desktop-header"></Header>
     <!-- Представление сайта -->
     <div class="section-block">
       <Intro />
@@ -29,6 +30,7 @@
 </template>
 
 <script>
+import MobileHeader from "@/components/MobileHeader.vue";
 import { useSettingsStore } from "@/stores/useSettingsStore";
 import { storeToRefs } from "pinia";
 import '@/assets/styles/animation-bubbles.css';
@@ -41,6 +43,7 @@ import Poll from '@/components/Poll.vue';
 export default {
   name: 'MainPage',
   components: {
+    MobileHeader,
     Header,
     Intro,
     TrendingTopics,
@@ -127,4 +130,11 @@ export default {
 .section-block:hover {
   transform: translateY(-5px); /* Эффект поднятия блока при наведении */
 }
+
+/* Скрыть основной хедер при маленькой ширине */
+@media (max-width: 768px) {
+    .main-container {
+      margin-top: 70px;
+    }
+  }
 </style>

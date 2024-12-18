@@ -1,4 +1,5 @@
 <template>
+  <MobileHeader logoSrc="/path-to-your-logo.png" />
     <div class="main-container">
       <!-- Анимация пузырьков -->
     <div v-show="bubblesEnabled" class="background-container">
@@ -39,6 +40,7 @@
   </template>
   
   <script>
+  import MobileHeader from "@/components/MobileHeader.vue";
   import { useSettingsStore } from "@/stores/useSettingsStore";
   import { storeToRefs } from "pinia";
   import '@/assets/styles/animation-bubbles.css';
@@ -50,6 +52,7 @@
     name: 'CreatePost',
   
     components: {
+      MobileHeader,
       Header,
     },
   
@@ -185,6 +188,12 @@
   .form-container {
     z-index: 1;
     position: relative;
+  }
+
+  @media (max-width: 768px) {
+    .main-container {
+      margin-top: 70px;
+    }
   }
   </style>
   

@@ -57,7 +57,7 @@ export default {
   opacity: 1;
   margin-top: 15px;
   margin-bottom: 10px;
-  width: 600px;
+
   max-width: 600px;
   background-color: rgb(33, 33, 33);
   color: white;

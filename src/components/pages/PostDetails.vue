@@ -1,4 +1,5 @@
 <template>
+  <MobileHeader logoSrc="/path-to-your-logo.png" />
   <div class="main-container">
     <!-- Анимация пузырьков -->
     <div v-show="bubblesEnabled" class="background-container">
@@ -7,6 +8,7 @@
     </div>
 
     <Header></Header>
+    <MobileHeader logoSrc="/path-to-your-logo.png" />
 
     <div class="post-details">
       <h1>{{ post.title }}</h1>
@@ -28,6 +30,7 @@
           </template>
         </div>
       <div class="post-likes">Лайков: {{ post.likes }}</div>
+      <Comments :initialComments="comments" />
     </div>
     <!-- Модальное окно для просмотра изображений -->
     <div v-if="showModal" class="modal" @click.self="closeModal">
@@ -41,16 +44,20 @@
 </template>
 
 <script>
+import Comments from "@/components/Comments.vue";
 import { useSettingsStore } from "@/stores/useSettingsStore";
 import { storeToRefs } from "pinia";
-import { posts } from "@/composables/usePosts"; // Ваш массив постов
+import { posts } from "@/composables/usePosts"; // Массив постов
+import MobileHeader from "@/components/MobileHeader.vue";
 import Header from "@/components/Header.vue";
 import '@/assets/styles/animation-bubbles.css';
 
 export default {
   name: "PostDetails",
   components: {
+    MobileHeader,
     Header,
+    Comments,
   },
   setup() {
     const settingsStore = useSettingsStore();
@@ -60,6 +67,10 @@ export default {
   props: ["id"], // Получаем параметр id из маршрута
   data() {
     return {
+      comments: [
+        { author: "Иван", text: "Отличный пост!", date: new Date() },
+        { author: "Мария", text: "Спасибо за информацию!", date: new Date() },
+      ],
       showModal: false, // Для отображения модального окна
       currentImageIndex: 0,  // Индекс активного изображения
       isHoweredImage: false
@@ -263,6 +274,7 @@ export default {
 }
 
 .modal-content {
+  display: flex;
   position: relative;
   max-width: 70%;
   max-height: 70%;
@@ -270,8 +282,9 @@ export default {
 }
 
 .modal-image {
+  display: flex;
   width: 100%;
-  height: auto;
+  height: 550px;
   object-fit: contain;
   border-radius: 8px;
 }
@@ -306,4 +319,10 @@ export default {
 .next-btn {
   right: 10px;
 }
+
+@media (max-width: 768px) {
+    .main-container {
+      margin-top: 70px;
+    }
+  }
 </style>

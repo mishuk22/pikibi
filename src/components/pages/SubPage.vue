@@ -1,6 +1,7 @@
 <template>
     <div class="main-container">
       <Header></Header>
+      <MobileHeader logoSrc="/path-to-your-logo.png" />
       <div class="form-container">
         <input v-model="title" type="text" class="title-input" placeholder="Заголовок..."/>
         <div v-if="showMessage" class="message">
@@ -35,12 +36,14 @@
   import { ref } from 'vue';
   import { posts, savePostsToLocalStorage } from '@/composables/usePosts'; // Импортируем глобальный массив постов
   import Header from '@/components/Header.vue';
+  import MobileHeader from "@/components/MobileHeader.vue";
   import '@/assets/styles/create-page-stylesheet.css';
   
   export default {
     name: 'CreatePost',
   
     components: {
+      MobileHeader,
       Header,
     },
   

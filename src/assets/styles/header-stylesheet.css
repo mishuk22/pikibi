@@ -1,5 +1,9 @@
     .sidebar {
-    z-index: 10;
+    display: flex; /* Включаем Flexbox */
+    flex-direction: column; /* Элементы будут располагаться в столбик (по умолчанию это row) */
+    align-items: center; /* Горизонтальное выравнивание по центру */
+    justify-content: center; /* Вертикальное выравнивание по центру */
+    z-index: 1001;
     opacity: 0;
     animation: ani 2.5s forwards;
     width: 100px;
@@ -30,7 +34,7 @@
   }
 
   .header {
-    z-index: 10;
+    z-index: 1001;
     text-decoration: none;
     opacity: 0;
     animation: ani 2.5s forwards;
@@ -315,6 +319,7 @@
   }
 
   .sticky-panel-menu {
+    font-family: '@components/LogoFont';
     text-decoration: none;
     margin-top: 10px;
     display: flex;
@@ -324,6 +329,7 @@
   }
 
   .sticky-panel-menu a {
+    font-family: '@components/LogoFont';
     text-decoration: none;
   }
 
@@ -346,6 +352,7 @@
   }
 
   .sticky-panel-text {
+    font-family: '@components/LogoFont';
     color: white;
     text-decoration: none;
     transition: height 0.5s ease, width 0.5s ease, opacity 0.5s ease;
@@ -360,6 +367,7 @@
   }
   .sticky-panel-text a:hover {
   text-decoration: none;
+  font-family: '@components/LogoFont';
 }
   .sticky-panel-text.expanded {
     transition: height 1.0s ease, width 1.0s ease, opacity 1.5s ease 0.8s;
@@ -410,7 +418,7 @@
   }
 
   .sidebar-add {
-    z-index: 10;
+    z-index: 1001;
     display: flex; /* Включаем Flexbox */
     flex-direction: column; /* Элементы будут располагаться в столбик (по умолчанию это row) */
     align-items: center; /* Горизонтальное выравнивание по центру */
@@ -450,6 +458,13 @@
 .sidebar-add.fixed:hover {
   transition: width 0.5s ease;
   width: 250px;
+}
+
+@media (max-width: 768px) {
+  .header, .sidebar, .sidebar-add {
+    display: none;
+    opacity: 0;
+  }
 }
   /*anim experiment*/
 
