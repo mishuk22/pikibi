@@ -118,19 +118,6 @@ export default {
   z-index: 1; /* Основное содержимое поверх пузырьков */
 }
 
-/* Изоляция прозрачности карточек */
-.posts-container, 
-.posts-container > * {
-  opacity: 1 !important; /* Принудительная отмена прозрачности */
-  position: relative; /* Отделяем слои пузырьков */
-  z-index: 2; /* Гарантируем, что карточки над пузырьками */
-}
-
-/* Задаём фон для контента */
-.main-container > *:not(.background-container) {
-  z-index: 1; /* Контент над фоном */
-}
-
 @media (max-width: 768px) {
     .main-container {
       margin-top: 70px;

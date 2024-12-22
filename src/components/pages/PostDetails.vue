@@ -8,7 +8,6 @@
     </div>
 
     <Header></Header>
-    <MobileHeader logoSrc="/path-to-your-logo.png" />
 
     <div class="post-details">
       <h1>{{ post.title }}</h1>
