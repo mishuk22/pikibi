@@ -27,6 +27,9 @@ npm run dev
 ```sh
 npm run build
 ```
-# pikibi
-# pikibi
-# pikibi
+### pikibi ps для запуска установить pinia
+
+```sh
+npm install pinia
+```
+
